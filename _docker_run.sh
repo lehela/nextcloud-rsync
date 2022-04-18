@@ -11,16 +11,15 @@ if [[ $? != 0 ]]; then
     echo "Mounting WebDAV failed. Exiting.."
     exit 1
 fi
-echo "Mounting successful."
+echo "Mounting successful.."
 
 if ! [[ -d /mnt/webdav/$target ]]; then
     echo "Target WebDAV folder $target is missing. Exiting.."
     exit 2
 fi
 
-echo "... syncing now"
-
-set -x
+echo "Start RSync.."
+echo 
 rsync -azv \
 	--size-only \
 	--no-owner \
@@ -35,7 +34,6 @@ rsync -azv \
     --exclude 'jupyter/lab/***'  \
     --exclude '.pytest/***'  \
     /source/ /mnt/webdav/$target $@
-set +x
 
 if [[ "$@" != *"--dry-run"* ]]; then
 
