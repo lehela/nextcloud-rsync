@@ -2,6 +2,7 @@
 user=$1
 source=$2
 target=$3
+uuid=$(uuidgen)
 
 shift 3
 
@@ -18,7 +19,7 @@ fi
 
 set -x
 docker run --rm --privileged --cap-add=SYS_ADMIN --device /dev/fuse \
-    --name goocloud-rsync-$user \
+    --name goocloud-rsync-$user-$uuid \
     -v /lib/modules:/lib/modules \
     -v /home/leif/development/goocloud-rsync:/host \
     -v $source:/source \
